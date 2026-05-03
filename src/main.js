@@ -110,22 +110,27 @@ function renderApp() {
           <i class="fa-solid fa-check-to-slot"></i>
           Election<span style="color: var(--saffron)">Assistant</span>
         </a>
-        <div class="nav-links">
-          <a href="#journey" data-i18n="nav.journey">Journey</a>
-          <a href="#guide" data-i18n="nav.guide">Guide</a>
-          <a href="#finder" data-i18n="nav.finder">Booth Finder</a>
-          <a href="#timeline" data-i18n="nav.timeline">Timeline</a>
-          <a href="#faq" data-i18n="nav.faq">FAQ</a>
+        <div class="hamburger-btn" onclick="toggleNav()">
+          <i class="fa-solid fa-bars"></i>
         </div>
-        <div class="accessibility-controls">
-          <select class="lang-select" title="Language" id="lang-selector" onchange="changeLanguage(this.value)">
-            <option value="en">English</option>
-            <option value="hi">हिंदी</option>
-            <option value="ta">தமிழ்</option>
-          </select>
-          <button class="voice-btn" title="Voice Navigation" id="voice-toggle">
-            <span class="material-symbols-outlined">volume_up</span>
-          </button>
+        <div class="nav-menu" id="nav-menu">
+          <div class="nav-links">
+            <a href="#journey" data-i18n="nav.journey" onclick="closeNav()">Journey</a>
+            <a href="#guide" data-i18n="nav.guide" onclick="closeNav()">Guide</a>
+            <a href="#finder" data-i18n="nav.finder" onclick="closeNav()">Booth Finder</a>
+            <a href="#timeline" data-i18n="nav.timeline" onclick="closeNav()">Timeline</a>
+            <a href="#faq" data-i18n="nav.faq" onclick="closeNav()">FAQ</a>
+          </div>
+          <div class="accessibility-controls">
+            <select class="lang-select" title="Language" id="lang-selector" onchange="changeLanguage(this.value)">
+              <option value="en">English</option>
+              <option value="hi">हिंदी</option>
+              <option value="ta">தமிழ்</option>
+            </select>
+            <button class="voice-btn" title="Voice Navigation" id="voice-toggle">
+              <span class="material-symbols-outlined">volume_up</span>
+            </button>
+          </div>
         </div>
       </div>
     </nav>
@@ -270,7 +275,7 @@ function renderApp() {
             <p style="font-size: 0.95rem; color: var(--white); margin: 0;"><i class="fa-solid fa-shield-halved" style="color: var(--saffron); margin-right: 0.5rem;"></i> <strong>Official Verification Required:</strong> This tool helps you format your search query. Exact polling station data requires official Election Commission verification.</p>
           </div>
 
-          <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+          <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
             <button class="tab-btn active" id="tab-epic" onclick="switchFinderTab('epic')" data-i18n="f.epic">Search by EPIC / Voter ID</button>
             <button class="tab-btn" id="tab-details" onclick="switchFinderTab('details')" data-i18n="f.det">Search by Details</button>
           </div>
@@ -303,7 +308,7 @@ function renderApp() {
             <div class="form-group" style="grid-column: 1 / -1;" id="advanced-search-container">
               <button onclick="document.getElementById('advanced-details').style.display = 'grid'" class="btn btn-secondary" style="width: 100%; border: 1px dashed var(--glass-border);">+ Advanced Search (Optional)</button>
             </div>
-            <div id="advanced-details" style="display: none; grid-column: 1 / -1; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+            <div id="advanced-details" class="advanced-details-grid" style="display: none; grid-column: 1 / -1; gap: 1.5rem;">
                <div class="form-group">
                  <label>Relative's Name</label>
                  <input type="text" id="rel-name-input" class="form-control" placeholder="Father/Husband's Name">
@@ -382,12 +387,12 @@ function renderApp() {
           </div>
 
           <div id="timeline-content" style="display: none;">
-            <div style="background: var(--bg-surface-light); padding: 1.5rem; border-radius: var(--radius-sm); border-left: 4px solid var(--saffron); margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div class="timeline-header-card">
               <div>
                 <h3 id="ts-state-name" style="font-size: 1.5rem; color: var(--white); margin-bottom: 0.25rem;">State Name</h3>
                 <p style="color: var(--text-secondary); font-size: 0.95rem;">Current Election Status <span id="ts-phases-badge" style="margin-left: 0.5rem; padding: 0.2rem 0.5rem; background: rgba(255,255,255,0.1); border-radius: 4px; font-size: 0.8rem; color: var(--white);">1 Phase</span></p>
               </div>
-              <div style="text-align: right;">
+              <div class="status-badge-container">
                 <span id="ts-status-badge" style="background: rgba(19, 136, 8, 0.2); color: var(--green); padding: 0.5rem 1rem; border-radius: 20px; font-weight: 600; font-size: 0.9rem; border: 1px solid var(--green);">Status</span>
               </div>
             </div>
@@ -396,13 +401,13 @@ function renderApp() {
               <!-- Rendered via JS -->
             </div>
             
-            <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem;">
-              <div id="ts-turnout-section" style="display: none; flex: 1; min-width: 200px; padding: 1.5rem; background: rgba(255, 153, 51, 0.05); border-radius: var(--radius-sm); border: 1px solid var(--glass-border);">
+            <div class="timeline-stats-container">
+              <div id="ts-turnout-section" class="timeline-stat-box" style="display: none; background: rgba(255, 153, 51, 0.05);">
                  <h4 style="color: var(--saffron); margin-bottom: 0.5rem;"><i class="fa-solid fa-users"></i> Voter Turnout</h4>
                  <p style="font-size: 1.5rem; font-family: var(--font-heading); font-weight: 700; color: var(--white);" id="ts-turnout-value">74.2%</p>
               </div>
 
-              <div id="ts-countdown-section" style="display: none; flex: 1; min-width: 200px; padding: 1.5rem; background: rgba(19, 136, 8, 0.05); border-radius: var(--radius-sm); border: 1px solid var(--glass-border);">
+              <div id="ts-countdown-section" class="timeline-stat-box" style="display: none; background: rgba(19, 136, 8, 0.05);">
                  <h4 style="color: var(--green); margin-bottom: 0.5rem;"><i class="fa-solid fa-clock"></i> Time until Results</h4>
                  <p style="font-size: 1.5rem; font-family: var(--font-heading); font-weight: 700; color: var(--white);" id="ts-countdown-value">--</p>
               </div>
@@ -506,6 +511,8 @@ window.resetJourney = resetJourney
 window.toggleCheck = toggleCheck
 window.toggleFaq = toggleFaq
 window.toggleChat = toggleChat
+window.toggleNav = () => document.getElementById('nav-menu').classList.toggle('active')
+window.closeNav = () => document.getElementById('nav-menu').classList.remove('active')
 window.sendChatMessage = sendChatMessage
 window.handleChatEnter = handleChatEnter
 window.sendQuickMessage = sendQuickMessage

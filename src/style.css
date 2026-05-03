@@ -538,15 +538,22 @@ nav {
 
 .finder-form {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 1.5rem;
   margin-bottom: 2rem;
+}
+
+@media (min-width: 769px) {
+  .finder-form {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  width: 100%;
 }
 
 .form-group label {
@@ -883,6 +890,64 @@ footer {
   color: var(--text-secondary);
 }
 
+/* Timeline Components */
+.timeline-header-card {
+  background: var(--bg-surface-light);
+  padding: 1.5rem;
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--saffron);
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.status-badge-container {
+  text-align: right;
+}
+
+.timeline-stats-container {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.timeline-stat-box {
+  flex: 1;
+  min-width: 200px;
+  padding: 1.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--glass-border);
+}
+
+.advanced-details-grid {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 769px) {
+  .advanced-details-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Hamburger Menu Base Styles */
+.hamburger-btn {
+  display: none;
+  font-size: 1.5rem;
+  color: var(--white);
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
 /* Responsive */
 @media (max-width: 992px) {
   .guide-grid {
@@ -892,23 +957,111 @@ footer {
   .hero h1 {
     font-size: 3.5rem;
   }
+  
+  .advanced-details-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {
+  .nav-container {
+    padding: 0 1rem;
+  }
+
+  .hamburger-btn {
+    display: block;
+  }
+
+  .nav-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: rgba(11, 12, 16, 0.95);
+    backdrop-filter: blur(16px);
+    padding: 2rem;
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+
+  .nav-menu.active {
+    display: flex;
+  }
+  
   .nav-links {
-    display: none; /* In a real app, add a hamburger menu */
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
   }
   
   .hero h1 {
     font-size: 2.8rem;
+  }
+
+  .options-grid {
+    grid-template-columns: 1fr;
   }
   
   .finder-form {
     grid-template-columns: 1fr;
   }
   
+  .advanced-details-grid {
+    grid-template-columns: 1fr;
+  }
+  
   .chatbot-window {
-    width: calc(100vw - 4rem);
+    width: calc(100vw - 2rem);
+    right: 1rem;
+    bottom: 5rem;
     height: 60vh;
+  }
+
+  .chatbot-widget {
+    right: 1rem;
+    bottom: 1rem;
+  }
+
+  .timeline-header-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .status-badge-container {
+    text-align: left;
+    margin-top: 0.5rem;
+  }
+
+  .timeline-stats-container {
+    flex-direction: column;
+  }
+
+  .tab-btn {
+    width: 100%;
+    flex: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  section {
+    padding: 4rem 0;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .chat-msg {
+    max-width: 90%;
   }
 }
